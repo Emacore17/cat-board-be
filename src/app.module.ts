@@ -6,6 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './config/typeorm.config';
 import { SearchModule } from './search/search.module';
+import { RegionModule } from './region/region.module';
+import { ProvinceModule } from './province/province.module';
+import { CityModule } from './city/city.module';
 
 @Module({
   imports: [
@@ -15,6 +18,9 @@ import { SearchModule } from './search/search.module';
       useClass: TypeOrmConfigService,
     }),
     SearchModule,
+    RegionModule,
+    ProvinceModule,
+    CityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -10,10 +10,11 @@ export class SearchController {
 
   @Get('/location')
   @ApiOperation({
-    summary: 'Ricerca località italiane come regioni, province o comuni',
+    summary: 'Ricerca località italiane',
+    description: 'Ricerca di comuni, province e/o regioni italiane'
   })
   @ApiResponse({ status: 400, description: 'Bad request.' })
-  @ApiResponse({ status: 200, description: 'Success.' })
+  @ApiResponse({ status: 200, description: 'Return locations with limit of 10' })
   async searchLocation(@Query() search: SearchLocationDto) {
     return this.searchService.searchLocation(search.query);
   }

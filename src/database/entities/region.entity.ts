@@ -3,8 +3,8 @@ import { Province } from './province.entity';
 
 @Entity()
 export class Region {
-  @PrimaryColumn()
-  id: number;
+  @PrimaryColumn({name: "region_id"})
+  regionId: number;
 
   @Column()
   @Index()

@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { TypeOrmExceptionFilter } from './exceptions/typeorm-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,7 +10,14 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
-  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+  app.useGlobalFilters(new TypeOrmExceptionFilter());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      transformOptions: { enableImplicitConversion: true },
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Cats example')

@@ -10,15 +10,15 @@ import { Province } from './province.entity';
 
 @Entity()
 export class City {
-  @PrimaryColumn()
-  id: number;
+  @PrimaryColumn({name: "city_id"})
+  cityId: number;
 
   @Column()
   @Index()
   name: string;
 
   @ManyToOne(() => Province, (province) => province.city)
-  @JoinColumn({ name: 'id_province' })
+  @JoinColumn({ name: 'province_id' })
   @Index()
   province: Province;
 }

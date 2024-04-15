@@ -12,8 +12,8 @@ import { Region } from './region.entity';
 
 @Entity()
 export class Province {
-  @PrimaryColumn()
-  id: number;
+  @PrimaryColumn({name: "province_id"})
+  provinceId: number;
 
   @Column()
   name: string;
@@ -23,7 +23,7 @@ export class Province {
   tag: string;
 
   @ManyToOne(() => Region, (region) => region.province)
-  @JoinColumn({ name: 'id_region' })
+  @JoinColumn({ name: 'region_id' })
   @Index()
   region: Region;
 
