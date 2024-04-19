@@ -20,7 +20,7 @@ export class SearchService {
       .leftJoinAndSelect('city.province', 'province')
       .where('city.name ILike :name', { name: `%${query}%` })
       .select([
-        'city.city_id as id',
+        'city.city_id as cityId',
         'city.name as name',
         'province.tag as tag',
         "'city' as type",
@@ -33,7 +33,7 @@ export class SearchService {
       .createQueryBuilder('province')
       .where('province.name ILike :name', { name: `%${query}%` })
       .select([
-        'province.province_id as id',
+        'province.province_id as provinceId',
         'province.name as name',
         'province.tag as tag',
         "'province' as type",
@@ -45,7 +45,7 @@ export class SearchService {
     const regions = await this.regionRepository
       .createQueryBuilder('region')
       .where('region.name ILike :name', { name: `%${query}%` })
-      .select(['region.region_id as id', 'region.name as name', "'region' as type"])
+      .select(['region.region_id as regionId', 'region.name as name', "'region' as type"])
       .limit(2)
       .offset(0)
       .getRawMany();

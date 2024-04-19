@@ -12,7 +12,7 @@ export class ProvinceService {
     private provinceRepository: Repository<Province>,
   ) {}
 
-  async getAllProvince(paginationQuery: PaginationQueryDto) {
+  async getAllProvinces(paginationQuery: PaginationQueryDto) {
     const { page, limit } = paginationQuery;
     const [results, total] = await this.provinceRepository.findAndCount({
       skip: (page - 1) * limit,
@@ -32,6 +32,6 @@ export class ProvinceService {
   }
 
   async getProvincesByRegionId(id: number) {
-    return await this.provinceRepository.findBy({ region: { regionId: id } });
+    return await this.provinceRepository.find({ where: { region: {regionId: id} }, relations: ["region"] });
   }
 }

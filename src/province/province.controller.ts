@@ -19,7 +19,7 @@ export class ProvinceController {
   })
   @Get()
   async getAllProvince(@Query() paginationQuery: PaginationQueryDto) {
-    return await this.provinceService.getAllProvince(paginationQuery);
+    return await this.provinceService.getAllProvinces(paginationQuery);
   }
 
   @ApiOperation({
