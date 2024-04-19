@@ -1,5 +1,5 @@
 # Usa un'immagine Node come base
-FROM node:16
+FROM node:20.9.0
 
 # Crea una directory di lavoro
 WORKDIR /usr/src/app
