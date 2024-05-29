@@ -23,6 +23,20 @@ services:
       - postgres_server
     networks:
       - adminer-network
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - DB_VENDOR=h2
+      - KEYCLOAK_IMPORT=/config/realm-export.json # Se hai un file di importazione del realm
+    ports:
+      - 9080:9080
+    volumes:
+      - ./config:/opt/keycloak/data/import
+    command: start-dev
 
 volumes:
   postgres-data:
