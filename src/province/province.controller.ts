@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ProvinceService } from './province.service';
-import { PaginationQueryDto } from 'src/dto/pagination-query.dto';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PaginationQueryDto } from 'src/dto/pagination-query.dto';
+import { ProvinceService } from './province.service';
 
 @ApiTags('Provinces')
 @Controller('provinces')
