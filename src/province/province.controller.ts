@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PaginationQueryDto } from 'src/dto/pagination-query.dto';
 import { ProvinceService } from './province.service';
+import { AuthGuard, ResourceGuard, Public } from 'nest-keycloak-connect';
 
 @ApiTags('Provinces')
 @Controller('provinces')

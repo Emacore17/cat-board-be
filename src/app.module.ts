@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
-  KeycloakConnectModule
+  AuthGuard,
+  KeycloakConnectModule,
+  ResourceGuard,
+  RoleGuard
 } from 'nest-keycloak-connect';
 import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
@@ -12,6 +15,8 @@ import { TypeOrmConfigService } from './config/typeorm.config';
 import { ProvinceModule } from './province/province.module';
 import { RegionModule } from './region/region.module';
 import { SearchModule } from './search/search.module';
+import { KeycloakConfigService } from './config/keycloak.config';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -20,12 +25,9 @@ import { SearchModule } from './search/search.module';
       imports: [ConfigModule],
       useClass: TypeOrmConfigService,
     }),
-    KeycloakConnectModule.register({
-      authServerUrl: 'http://localhost:9080/auth',
-      realm: 'cat-realm',
-      clientId: 'nestjs',
-      secret: 'qai6MweZkf3NzUOk8aMLjQlNBD8hpZLr',
-      // Secret key of the client taken from keycloak server
+    KeycloakConnectModule.registerAsync({
+      useClass: KeycloakConfigService,
+      imports: [ConfigModule],
     }),
     SearchModule,
     RegionModule,
@@ -33,7 +35,18 @@ import { SearchModule } from './search/search.module';
     CityModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,  {
+    provide: APP_GUARD,
+    useClass: AuthGuard,
+  },
+  {
+    provide: APP_GUARD,
+    useClass: ResourceGuard,
+  },
+  {
+    provide: APP_GUARD,
+    useClass: RoleGuard,
+  },]
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
