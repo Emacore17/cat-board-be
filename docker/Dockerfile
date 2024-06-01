@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Espone la porta usata dall'applicazione (sostituisci con la porta usata dal tuo NestJS)
-EXPOSE 3000
+EXPOSE 4000
 
 # Comando per avviare l'applicazione
 CMD ["npm", "run", "start:prod"]

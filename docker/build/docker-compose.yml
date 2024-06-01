@@ -38,6 +38,10 @@ services:
       POSTGRES_DBNAME: catdb
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+      KEYCLOAK_HOST: http://localhost:9080
+      KEYCLOAK_REALM: cat-realm
+      KEYCLOAK_CLIENT: nestjs
+      KEYCLOAK_SECRET: nestjs-secret
     depends_on:
       - postgres_server
     networks:

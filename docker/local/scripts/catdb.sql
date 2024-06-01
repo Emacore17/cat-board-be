@@ -2,13 +2,13 @@
 
 DROP TABLE IF EXISTS "city";
 CREATE TABLE "public"."city" (
-    "id_city" integer NOT NULL,
+    "city_id" integer NOT NULL,
     "name" character varying NOT NULL,
-    "id_province" integer,
-    CONSTRAINT "PK_2a8253d3a9848330302a51aa44b" PRIMARY KEY ("id_city")
+    "province_id" integer,
+    CONSTRAINT "PK_2a8253d3a9848330302a51aa44b" PRIMARY KEY ("city_id")
 ) WITH (oids = false);
 
-INSERT INTO "city" ("id_city", "name", "id_province") VALUES
+INSERT INTO "city" ("city_id", "name", "province_id") VALUES
 (1001,	'Agliè',	1),
 (1002,	'Airasca',	1),
 (1003,	'Ala di Stura',	1),
@@ -7908,15 +7908,15 @@ INSERT INTO "city" ("id_city", "name", "id_province") VALUES
 
 DROP TABLE IF EXISTS "province";
 CREATE TABLE "public"."province" (
-    "id_region" integer,
-    "id_province" integer NOT NULL,
+    "region_id" integer,
+    "province_id" integer NOT NULL,
     "name" character varying NOT NULL,
     "tag" character varying NOT NULL,
-    CONSTRAINT "PK_177a8f7c5df9c2c3dfe6fcdcc09" PRIMARY KEY ("id_province"),
+    CONSTRAINT "PK_177a8f7c5df9c2c3dfe6fcdcc09" PRIMARY KEY ("province_id"),
     CONSTRAINT "UQ_2fc63fbd9359610e14377112f79" UNIQUE ("tag")
 ) WITH (oids = false);
 
-INSERT INTO "province" ("id_region", "id_province", "name", "tag") VALUES
+INSERT INTO "province" ("region_id", "province_id", "name", "tag") VALUES
 (1,	1,	'Torino',	'TO'),
 (1,	2,	'Vercelli',	'VC'),
 (1,	3,	'Novara',	'NO'),
@@ -8027,12 +8027,12 @@ INSERT INTO "province" ("id_region", "id_province", "name", "tag") VALUES
 
 DROP TABLE IF EXISTS "region";
 CREATE TABLE "public"."region" (
-    "id_region" integer NOT NULL,
+    "region_id" integer NOT NULL,
     "name" character varying NOT NULL,
-    CONSTRAINT "PK_a64d99e9852aeb0722f49ed1f1a" PRIMARY KEY ("id_region")
+    CONSTRAINT "PK_a64d99e9852aeb0722f49ed1f1a" PRIMARY KEY ("region_id")
 ) WITH (oids = false);
 
-INSERT INTO "region" ("id_region", "name") VALUES
+INSERT INTO "region" ("region_id", "name") VALUES
 (1,	'Piemonte'),
 (2,	'Valle d''Aosta'),
 (3,	'Lombardia'),
@@ -8054,8 +8054,8 @@ INSERT INTO "region" ("id_region", "name") VALUES
 (19,	'Sicilia'),
 (20,	'Sardegna');
 
-ALTER TABLE ONLY "public"."city" ADD CONSTRAINT "FK_7f645c076ebef24886361733c6c" FOREIGN KEY (id_province) REFERENCES province(id_province) NOT DEFERRABLE;
+ALTER TABLE ONLY "public"."city" ADD CONSTRAINT "FK_7f645c076ebef24886361733c6c" FOREIGN KEY (province_id) REFERENCES province(province_id) NOT DEFERRABLE;
 
-ALTER TABLE ONLY "public"."province" ADD CONSTRAINT "FK_6737edc9fc04997630e2d4f8775" FOREIGN KEY (id_region) REFERENCES region(id_region) NOT DEFERRABLE;
+ALTER TABLE ONLY "public"."province" ADD CONSTRAINT "FK_6737edc9fc04997630e2d4f8775" FOREIGN KEY (region_id) REFERENCES region(region_id) NOT DEFERRABLE;
 
--- 2024-04-13 17:16:57.614954+00
+-- 2024-06-01 10:24:13.257469+00
